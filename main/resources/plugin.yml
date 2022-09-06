@@ -2,7 +2,7 @@ name: Fantastick
 version: ${project.version}
 main: me.wiviw.fantastick.Fantastick
 api-version: 1.17
-depend: [ NBTAPI , WorldGuard]
+depend: [ NBTAPI , WorldGuard ]
 authors: [ WiViW ]
 description: Useful Sticks and a collection of helpful utilities.
 commands:

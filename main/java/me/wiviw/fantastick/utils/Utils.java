@@ -10,16 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
-    public static void giveItemToPlayer(Player p, ItemStack i){
+    public static void giveItemToPlayer(Player p, ItemStack i) {
         int firstEmpty = p.getInventory().firstEmpty();
-        if (firstEmpty==-1){
+        if (firstEmpty == -1) {
             p.sendMessage(ChatColor.RED + "You had a full inventory, so I dropped your item on the ground.");
             p.getWorld().dropItem(p.getLocation(), i);
-        }else{
+        } else {
             p.getInventory().setItem(firstEmpty, i);
         }
     }
-    public static List<String> getSelectors(){
+
+    public static List<String> getSelectors() {
         List<String> Selectors = new ArrayList<>();
         Selectors.add("@a");
         Selectors.add("@p");
@@ -27,26 +28,26 @@ public class Utils {
         return Selectors; // @a = ALl Players, @p Closest Player, @s Entity Who executed the command
     }
 
-    public static List<String> getAllTeams(CommandSender sender){
+    public static List<String> getAllTeams(CommandSender sender) {
         List<String> Teams = new ArrayList<>();
-        for (Team t : sender.getServer().getScoreboardManager().getMainScoreboard().getTeams()){
+        for (Team t : sender.getServer().getScoreboardManager().getMainScoreboard().getTeams()) {
             Teams.add(t.getName());
         }
         return Teams;
     }
 
-    public static List<String> getAllPlayers(CommandSender sender){
+    public static List<String> getAllPlayers(CommandSender sender) {
         List<String> Players = new ArrayList<>();
-        for (Player p : sender.getServer().getOnlinePlayers()){
+        for (Player p : sender.getServer().getOnlinePlayers()) {
             Players.add(p.getName());
         }
         return Players;
     }
 
-    public static List<Player> getAllPlayersOnTeam(Player p, Team t){
+    public static List<Player> getAllPlayersOnTeam(Player p, Team t) {
         List<Player> Players = new ArrayList<>();
-        for (String player : t.getEntries()){
-            if (p.getServer().getPlayer(player)!=null){
+        for (String player : t.getEntries()) {
+            if (p.getServer().getPlayer(player) != null) {
                 Players.add(p.getServer().getPlayer(player));
             }
         }
@@ -59,15 +60,15 @@ public class Utils {
     1 = Execute with player
     2 = Execute from other source
      */
-    public static int getCommandModeAndCheckPerm(CommandSender sender, String permission){
-        if (sender instanceof Player){
-            if (sender.hasPermission(permission) || sender.isOp()){
+    public static int getCommandModeAndCheckPerm(CommandSender sender, String permission) {
+        if (sender instanceof Player) {
+            if (sender.hasPermission(permission) || sender.isOp()) {
                 return 1;
-            }else{
+            } else {
                 sender.sendMessage(ChatColor.RED + "I'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.");
                 return 0;
             }
-        }else{
+        } else {
             return 2;
         }
     }

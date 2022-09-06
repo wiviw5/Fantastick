@@ -22,34 +22,34 @@ public class deathsticks implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String Permission = Pluginname + "." + CommandPerm + "." + "deathsticks";
-        switch(getCommandModeAndCheckPerm(sender, Permission)){
+        switch (getCommandModeAndCheckPerm(sender, Permission)) {
             case 0: // Do not execute
                 return false;
             case 1: // Execute as player
-                if (args.length<1){
+                if (args.length < 1) {
                     giveItemToPlayer((Player) sender, getDeathStick()); // With no args it only applies to themself
-                }else{
-                    if (args[0].equals("@a")){
-                        for (Player p : sender.getServer().getOnlinePlayers()){
+                } else {
+                    if (args[0].equals("@a")) {
+                        for (Player p : sender.getServer().getOnlinePlayers()) {
                             giveItemToPlayer(p, getDeathStick());
                         }
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
                 }
                 return true;
             case 2: // Execute as Other
-                if (args.length<1){
+                if (args.length < 1) {
                     sender.sendMessage(ChatColor.RED + "You must have some arguments specifying who you want to give this to.");
                     return false;
-                }else{
-                    if (args[0].equals("@a")){
-                        for (Player p : sender.getServer().getOnlinePlayers()){
+                } else {
+                    if (args[0].equals("@a")) {
+                        for (Player p : sender.getServer().getOnlinePlayers()) {
                             giveItemToPlayer(p, getDeathStick());
                         }
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
                 }
@@ -59,18 +59,18 @@ public class deathsticks implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!(args[0].length()>0)){
+        if (!(args[0].length() > 0)) {
             List<String> playerAndSelectors = getSelectors();
             for (Player p : sender.getServer().getOnlinePlayers()) {
                 playerAndSelectors.add(p.getName());
             }
             return playerAndSelectors;
-        }else{
+        } else {
             return new ArrayList<>();
         }
     }
 
-    public static ItemStack getDeathStick(){
+    public static ItemStack getDeathStick() {
         ItemStack DeathStick = new ItemStack(Material.STICK);
         ItemMeta DeathStickMeta = DeathStick.getItemMeta();
         DeathStickMeta.setDisplayName(ChatColor.RED + "Death Stick");

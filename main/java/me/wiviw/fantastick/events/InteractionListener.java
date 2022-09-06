@@ -68,7 +68,7 @@ public class InteractionListener implements Listener {
         String type = TeleportInfo.getAsJsonPrimitive("teleType").getAsString();
         String target = TeleportInfo.getAsJsonPrimitive("teleTarget").getAsString();
         List<Player> teleportList = new ArrayList<>();
-        switch (type){
+        switch (type) {
             case "Player":
                 teleportList.add(activator.getServer().getPlayer(target));
                 break;
@@ -77,8 +77,8 @@ public class InteractionListener implements Listener {
                 teleportList = getAllPlayersOnTeam(activator, t);
                 break;
             case "Gamemode":
-                for (Player p : activator.getServer().getOnlinePlayers()){
-                    if (p.getGameMode().name().equals(target.toUpperCase())){
+                for (Player p : activator.getServer().getOnlinePlayers()) {
+                    if (p.getGameMode().name().equals(target.toUpperCase())) {
                         teleportList.add(p);
                     }
                 }
@@ -88,14 +88,14 @@ public class InteractionListener implements Listener {
                 break;
         }
         String destination = TeleportInfo.getAsJsonPrimitive("teleDestination").getAsString();
-        if (destination.equals("User")){
+        if (destination.equals("User")) {
             String destinationUserStr = TeleportInfo.getAsJsonPrimitive("teleDestinationUser").getAsString();
             Player destinationUser = activator.getServer().getPlayer(destinationUserStr);
-            for (Player p : teleportList){
+            for (Player p : teleportList) {
                 p.teleport(destinationUser.getLocation());
                 activator.sendMessage(ChatColor.GRAY + "Teleported: " + p.getName() + " to that person.");
             }
-        }else{
+        } else {
             JsonObject teleDestinationLocationInfo = TeleportInfo.getAsJsonObject("teleDestinationLocationInfo");
             String world = teleDestinationLocationInfo.getAsJsonPrimitive("world").getAsString();
             double x = teleDestinationLocationInfo.getAsJsonPrimitive("x").getAsDouble();
@@ -103,8 +103,8 @@ public class InteractionListener implements Listener {
             double z = teleDestinationLocationInfo.getAsJsonPrimitive("z").getAsDouble();
             float pitch = teleDestinationLocationInfo.getAsJsonPrimitive("pitch").getAsFloat();
             float yaw = teleDestinationLocationInfo.getAsJsonPrimitive("yaw").getAsFloat();
-            Location teleportTo = new Location(activator.getServer().getWorld(world), x,y,z,yaw,pitch);
-            for (Player p : teleportList){
+            Location teleportTo = new Location(activator.getServer().getWorld(world), x, y, z, yaw, pitch);
+            for (Player p : teleportList) {
                 p.teleport(teleportTo);
                 activator.sendMessage(ChatColor.GRAY + "Teleported: " + p.getName() + " to that block.");
             }

@@ -82,10 +82,10 @@ public class teleportSticks implements TabExecutor {
                     if (args.length > 3) {
                         Player p = sender.getServer().getPlayer(args[3]);
                         if (args[2].equals("User")) {
-                            if (p!=null){
+                            if (p != null) {
                                 destinationuser = args[3];
                                 giveUserStick((Player) sender, type, target, destination, destinationuser);
-                            }else{
+                            } else {
                                 sender.sendMessage(ChatColor.RED + "Specify Destination User");
                                 return false;
                             }
@@ -176,9 +176,9 @@ public class teleportSticks implements TabExecutor {
         TeleportInfo.addProperty("teleType", type);
         TeleportInfo.addProperty("teleTarget", target);
         TeleportInfo.addProperty("teleDestination", destination);
-        if (destination.equals("User")){
+        if (destination.equals("User")) {
             TeleportInfo.addProperty("teleDestinationUser", destinationUser);
-        }else{
+        } else {
             Location loc = p.getLocation();
             JsonObject teleDestinationLocationInfo = new JsonObject();
             teleDestinationLocationInfo.addProperty("world", loc.getWorld().getName()); // Deal with world later
@@ -201,9 +201,9 @@ public class teleportSticks implements TabExecutor {
         lore.add(ChatColor.GRAY + "Teleport Type: " + ChatColor.WHITE + type);
         lore.add(ChatColor.GRAY + "Target: " + ChatColor.WHITE + target);
         lore.add(ChatColor.GRAY + "Destination: " + ChatColor.WHITE + destination);
-        if (destinationUser!=null){
+        if (destinationUser != null) {
             lore.add(ChatColor.GRAY + "Destination User: " + ChatColor.WHITE + destinationUser);
-        }else{
+        } else {
             //lore.add(ChatColor.GRAY + "Destination Block: " + ChatColor.WHITE + p.getLocation().getBlockX() + " " + p.getLocation().getBlockY() + " " + p.getLocation().getBlockZ());
         }
         lore.add(ChatColor.GOLD + "Created By User: " + ChatColor.WHITE + p.getName());

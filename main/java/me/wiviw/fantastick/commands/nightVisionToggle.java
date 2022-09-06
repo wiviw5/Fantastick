@@ -19,35 +19,35 @@ import static me.wiviw.fantastick.utils.Utils.getCommandModeAndCheckPerm;
 
 public class nightVisionToggle implements TabExecutor {
 
-    public PotionEffect NightVision = new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE,0,false,false);
+    public PotionEffect NightVision = new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, false, false);
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String Permission = Pluginname + "." + CommandPerm + "." + "nightvisiontoggle";
-        switch(getCommandModeAndCheckPerm(sender, Permission)){
+        switch (getCommandModeAndCheckPerm(sender, Permission)) {
             case 0: // Do not execute
                 return false;
             case 1: // Execute as player
             case 2: // Execute as Other
-                if (args.length<1){
-                    if (respawnwithNightVision){
+                if (args.length < 1) {
+                    if (respawnwithNightVision) {
                         sender.sendMessage(ChatColor.GRAY + "Turned" + ChatColor.RED + " off " + ChatColor.GRAY + "night vision for players");
-                        respawnwithNightVision=false;
+                        respawnwithNightVision = false;
                         removeNightVision(sender);
-                    }else{
+                    } else {
                         sender.sendMessage(ChatColor.GRAY + "Turned" + ChatColor.GREEN + " on " + ChatColor.GRAY + "night vision for players");
                         addNightVision(sender);
-                        respawnwithNightVision=true;
+                        respawnwithNightVision = true;
                     }
-                }else{
-                    if (args[0].equals("true")){
+                } else {
+                    if (args[0].equals("true")) {
                         sender.sendMessage(ChatColor.GRAY + "Turned" + ChatColor.GREEN + " on " + ChatColor.GRAY + "night vision for players");
                         addNightVision(sender);
-                        respawnwithNightVision=true;
-                    }else{
+                        respawnwithNightVision = true;
+                    } else {
                         sender.sendMessage(ChatColor.GRAY + "Turned" + ChatColor.RED + " off " + ChatColor.GRAY + "night vision for players");
                         removeNightVision(sender);
-                        respawnwithNightVision=false;
+                        respawnwithNightVision = false;
                     }
                 }
                 return true;
@@ -55,23 +55,23 @@ public class nightVisionToggle implements TabExecutor {
         return false;
     }
 
-    private void removeNightVision(CommandSender sender){
-        for (Player player : sender.getServer().getOnlinePlayers()){
+    private void removeNightVision(CommandSender sender) {
+        for (Player player : sender.getServer().getOnlinePlayers()) {
             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
         }
     }
 
-    private void addNightVision(CommandSender sender){
-        for (Player player : sender.getServer().getOnlinePlayers()){
+    private void addNightVision(CommandSender sender) {
+        for (Player player : sender.getServer().getOnlinePlayers()) {
             player.addPotionEffect(NightVision);
         }
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!(args[0].length()>0)){
+        if (!(args[0].length() > 0)) {
             return Arrays.asList("true", "false");
-        }else{
+        } else {
             return new ArrayList<>();
         }
     }

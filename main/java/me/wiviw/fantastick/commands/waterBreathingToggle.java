@@ -19,35 +19,35 @@ import static me.wiviw.fantastick.utils.Utils.getCommandModeAndCheckPerm;
 
 public class waterBreathingToggle implements TabExecutor {
 
-    public PotionEffect WaterBreathing = new PotionEffect(PotionEffectType.WATER_BREATHING, Integer.MAX_VALUE,0,false,false);
+    public PotionEffect WaterBreathing = new PotionEffect(PotionEffectType.WATER_BREATHING, Integer.MAX_VALUE, 0, false, false);
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String Permission = Pluginname + "." + CommandPerm + "." + "waterbreathingtoggle";
-        switch(getCommandModeAndCheckPerm(sender, Permission)){
+        switch (getCommandModeAndCheckPerm(sender, Permission)) {
             case 0: // Do not execute
                 return false;
             case 1: // Execute as player
             case 2: // Execute as Other
-                if (args.length<1){
-                    if (respawnwithWaterBreathing){
+                if (args.length < 1) {
+                    if (respawnwithWaterBreathing) {
                         sender.sendMessage(ChatColor.GRAY + "Turned" + ChatColor.RED + " off " + ChatColor.GRAY + "water breathing for players");
-                        respawnwithWaterBreathing=false;
+                        respawnwithWaterBreathing = false;
                         removeWaterBreathing(sender);
-                    }else{
+                    } else {
                         sender.sendMessage(ChatColor.GRAY + "Turned" + ChatColor.GREEN + " on " + ChatColor.GRAY + "water breathing for players");
                         addWaterBreathing(sender);
-                        respawnwithWaterBreathing=true;
+                        respawnwithWaterBreathing = true;
                     }
-                }else{
-                    if (args[0].equals("true")){
+                } else {
+                    if (args[0].equals("true")) {
                         sender.sendMessage(ChatColor.GRAY + "Turned" + ChatColor.GREEN + " on " + ChatColor.GRAY + "water breathing for players");
                         addWaterBreathing(sender);
-                        respawnwithWaterBreathing=true;
-                    }else{
+                        respawnwithWaterBreathing = true;
+                    } else {
                         sender.sendMessage(ChatColor.GRAY + "Turned" + ChatColor.RED + " off " + ChatColor.GRAY + "water breathing for players");
                         removeWaterBreathing(sender);
-                        respawnwithWaterBreathing=false;
+                        respawnwithWaterBreathing = false;
                     }
                 }
                 return true;
@@ -55,23 +55,23 @@ public class waterBreathingToggle implements TabExecutor {
         return false;
     }
 
-    private void removeWaterBreathing(CommandSender sender){
-        for (Player player : sender.getServer().getOnlinePlayers()){
+    private void removeWaterBreathing(CommandSender sender) {
+        for (Player player : sender.getServer().getOnlinePlayers()) {
             player.removePotionEffect(PotionEffectType.WATER_BREATHING);
         }
     }
 
-    private void addWaterBreathing(CommandSender sender){
-        for (Player player : sender.getServer().getOnlinePlayers()){
+    private void addWaterBreathing(CommandSender sender) {
+        for (Player player : sender.getServer().getOnlinePlayers()) {
             player.addPotionEffect(WaterBreathing);
         }
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!(args[0].length()>0)){
+        if (!(args[0].length() > 0)) {
             return Arrays.asList("true", "false");
-        }else{
+        } else {
             return new ArrayList<>();
         }
     }
